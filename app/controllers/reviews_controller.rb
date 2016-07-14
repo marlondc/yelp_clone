@@ -1,14 +1,22 @@
 class ReviewsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @restaurant.reviews.create(review_params)
-    redirect_to '/restaurants'
+    @review = Review.new(review_params)
+    @review.user = current_user
+    @review.restaurant = Restaurant.find(params[:restaurant_id])
+    if @review.save
+      redirect_to '/restaurants'
+    else
+      flash[:notice] = 'Cannot review same restaurant twice'
+      redirect_to '/restaurants'
+    end
   end
 
   private
