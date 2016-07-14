@@ -8,6 +8,7 @@ feature 'reviewing' do
 
   scenario 'allows users to leave a review using a form' do
     visit '/restaurants'
+    user_sign_up
     click_link 'Review KFC'
     fill_in 'Thoughts', with: 'so so'
     select '3', from: 'Rating'
