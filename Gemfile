@@ -14,7 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   gem 'byebug'
-  gem 'coveralls'
+  gem 'coveralls', require: false
 end
 
 group :test do
